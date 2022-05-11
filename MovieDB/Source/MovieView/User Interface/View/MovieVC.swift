@@ -9,7 +9,7 @@ import UIKit
 
 class MovieVC: BaseViewController {
     // MARK: - Subviews
-    @IBOutlet private weak var collectionVW: UICollectionView!
+    @IBOutlet weak var collectionVW: UICollectionView!
     //Pagination
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     

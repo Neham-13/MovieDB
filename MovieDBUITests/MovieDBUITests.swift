@@ -6,8 +6,26 @@
 //
 
 import XCTest
+import MovieDB
+@testable import MovieDB
 
 class MovieDBUITests: XCTestCase {
+    
+    var uiForTest: MovieVC!
+        
+        override func setUp() {
+            
+            super.setUp()
+            
+            //get the storyboard the ViewController under test is inside
+            let storyboard: UIStoryboard = UIStoryboard(name: "MovieVC", bundle: nil)
+            
+            //get the ViewController we want to test from the storyboard (note the identifier is the id explicitly set in the identity inspector)
+            uiForTest = storyboard.instantiateViewController(withIdentifier: "MovieVC") as? MovieVC
+            
+            //load view hierarchy
+            _ = uiForTest.view
+        }
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -39,4 +57,19 @@ class MovieDBUITests: XCTestCase {
             }
         }
     }
+    
+    func testSUT_CollectionViewIsNotNilAfterViewDidLoad() {
+            
+            XCTAssertNotNil(uiForTest.collectionVW)
+        }
+   
+        func testSUT_ShouldSetCollectionViewDataSource() {
+            
+            XCTAssertNotNil(uiForTest.collectionVW.dataSource)
+        }
+        
+        func testSUT_ShouldSetCollectionViewDelegate() {
+            
+            XCTAssertNotNil(uiForTest.collectionVW.delegate)
+        }
 }

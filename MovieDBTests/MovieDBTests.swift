@@ -34,7 +34,25 @@ class MovieDBTests: XCTestCase {
     }
     
     func testMovieApi() throws {
-        
+        let successReturn = expectation(description: StringConstants.successCase)
+        if StringConstants.apiKey.isEmpty {
+            XCTFail("Api key is empty.")
+            return
+        }
+        let url = URL(string: StringConstants.movieURL + "1")!
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { [weak self] data, response, error in
+            if error != nil {
+                XCTFail(StringConstants.parseErrorCase)
+                return
+            }
+            guard let _ = data else {
+                XCTFail(StringConstants.dataNilCase)
+                return
+            }
+            successReturn.fulfill()
+        })
+        task.resume()
+        wait(for: [successReturn], timeout: 2)
     }
 
 }
